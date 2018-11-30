@@ -17,12 +17,14 @@ import de.centerdevice.beanbouncer.handler.UnsafeInjectionHandler;
 import de.centerdevice.beanbouncer.provider.AnnotationSafeTargetScopeProvider;
 import de.centerdevice.beanbouncer.provider.CachedSafeTargetScopeProvider;
 import de.centerdevice.beanbouncer.provider.SafeTargetScopeProvider;
+import de.centerdevice.beanbouncer.whitelist.BeanWhitelist;
 
 public class BeanBouncer implements BeanPostProcessor {
 	private final Logger logger = LoggerFactory.getLogger(BeanBouncer.class);
 
 	private final ConfigurableListableBeanFactory configurableBeanFactory;
 	private final UnsafeInjectionHandler unsafeInjectionHandler;
+	private final Optional<BeanWhitelist> whitelist;
 
 	private final SafeTargetScopeProvider safeTargetScopeProvider = new CachedSafeTargetScopeProvider(
 			new AnnotationSafeTargetScopeProvider());
@@ -30,14 +32,15 @@ public class BeanBouncer implements BeanPostProcessor {
 	private final Set<String> verifiedBeanNames = new HashSet<>();
 
 	public BeanBouncer(ConfigurableListableBeanFactory beanFactory,
-			Optional<UnsafeInjectionHandler> unsafeInjectionHandler) {
+			Optional<UnsafeInjectionHandler> unsafeInjectionHandler, Optional<BeanWhitelist> whitelist) {
 		this.configurableBeanFactory = beanFactory;
+		this.whitelist = whitelist;
 		this.unsafeInjectionHandler = unsafeInjectionHandler.orElseGet(() -> new LoggingUnsafeInjectionHandler());
 	}
 
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		if (verifiedBeanNames.contains(beanName)) {
+		if (verifiedBeanNames.contains(beanName) || whitelist.map(w -> w.isWhitelisted(beanName)).orElse(false)) {
 			return bean;
 		}
 

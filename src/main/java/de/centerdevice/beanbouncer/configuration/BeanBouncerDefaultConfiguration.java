@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 
 import de.centerdevice.beanbouncer.BeanBouncer;
 import de.centerdevice.beanbouncer.handler.UnsafeInjectionHandler;
+import de.centerdevice.beanbouncer.whitelist.BeanWhitelist;
 
 @Configuration
 public class BeanBouncerDefaultConfiguration {
@@ -16,7 +17,7 @@ public class BeanBouncerDefaultConfiguration {
 	@Bean
 	@Order(0)
 	BeanBouncer getBeanBouncer(ConfigurableListableBeanFactory beanFactory,
-			Optional<UnsafeInjectionHandler> unsafeInjectionHandler) {
-		return new BeanBouncer(beanFactory, unsafeInjectionHandler);
+			Optional<UnsafeInjectionHandler> unsafeInjectionHandler, Optional<BeanWhitelist> whitelist) {
+		return new BeanBouncer(beanFactory, unsafeInjectionHandler, whitelist);
 	}
 }
