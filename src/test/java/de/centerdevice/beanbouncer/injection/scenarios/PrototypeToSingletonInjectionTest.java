@@ -12,15 +12,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.centerdevice.beanbouncer.BeanBouncer;
 import de.centerdevice.beanbouncer.common.CommonTestConfiguration;
 import de.centerdevice.beanbouncer.common.InnerClass;
 import de.centerdevice.beanbouncer.common.OuterClass;
 import junit.framework.TestCase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { CommonTestConfiguration.class, PrototypeToSingletonInjectionTest.class,
-		BeanBouncer.class })
+@ContextConfiguration(classes = { CommonTestConfiguration.class, PrototypeToSingletonInjectionTest.class })
 public class PrototypeToSingletonInjectionTest extends TestCase {
 
 	@Bean
