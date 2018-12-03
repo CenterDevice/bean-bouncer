@@ -1,0 +1,54 @@
+package de.centerdevice.beanbouncer.injection.scenarios;
+
+import javax.inject.Provider;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import de.centerdevice.beanbouncer.common.CommonTestConfiguration;
+import de.centerdevice.beanbouncer.common.InnerClass;
+import junit.framework.TestCase;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { CommonTestConfiguration.class, PrototypeProviderToSingletonInjectionTest.class,
+		PrototypeProviderToSingletonInjectionTest.OuterClassWithProvider.class })
+public class PrototypeProviderToSingletonInjectionTest extends TestCase {
+
+	@Bean
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	InnerClass getInnerClass() {
+		return new InnerClass();
+	}
+
+	@Autowired
+	ConfigurableListableBeanFactory beanFactory;
+
+	@Test
+	public void testBeanCreation() {
+		beanFactory.getBean(OuterClassWithProvider.class);
+	}
+
+	@Component
+	public static class OuterClassWithProvider {
+
+		private final Provider<InnerClass> innerClass;
+
+		@Autowired
+		public OuterClassWithProvider(Provider<InnerClass> innerClass) {
+			this.innerClass = innerClass;
+		}
+
+		public InnerClass getInnerClass() {
+			return innerClass.get();
+		}
+	}
+
+}
