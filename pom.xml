@@ -7,13 +7,30 @@
 	<artifactId>bean-bouncer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-
+	
 	<name>bean-bouncer</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/CenterDevice/bean-bouncer</url>
+
+	<organization>
+		<name>CenterDevice GmbH</name>
+	</organization>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+
+	<licenses>
+		<license>
+			<name>BSD 3-Clause</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/CenterDevice/bean-bouncer</url>
+	</scm>
 
 	<dependencyManagement>
 		<dependencies>
@@ -46,6 +63,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>centerdevice-bean-bouncer</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
