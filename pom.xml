@@ -7,6 +7,7 @@
 	<artifactId>bean-bouncer</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
+	<description>Runtime bean scope validation for Spring</description>
 
 	<name>bean-bouncer</name>
 	<url>https://github.com/CenterDevice/bean-bouncer</url>
@@ -28,9 +29,20 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<email>jan.gassen@centerdevice.com</email>
+			<name>Jan Gassen</name>
+			<url>https://github.com/0x4a616e</url>
+			<id>0x4a616e</id>
+		</developer>
+	</developers>
+
 	<scm>
 		<url>https://github.com/CenterDevice/bean-bouncer</url>
-	</scm>
+		<connection>scm:git:https://github.com/CenterDevice/bean-bouncer.git</connection>
+	  <tag>bean-bouncer-0.0.1</tag>
+  </scm>
 
 	<distributionManagement>
 		<snapshotRepository>
@@ -138,6 +150,17 @@
 					</execution>
 				</executions>
 	   </plugin>
+		 <plugin>
+			<groupId>org.sonatype.plugins</groupId>
+			<artifactId>nexus-staging-maven-plugin</artifactId>
+			<version>1.6.8</version>
+			<extensions>true</extensions>
+			<configuration>
+				<serverId>ossrh</serverId>
+				<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				<autoReleaseAfterClose>true</autoReleaseAfterClose>
+			</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
