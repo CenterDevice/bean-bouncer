@@ -16,6 +16,16 @@ Everything else needs to be allowed explicitly. If a bean with a not allowed sco
 
 ## Usage
 
+If you're using maven, add the following dependency to your `pom.xml`:
+
+```
+<dependency>
+  <groupId>de.centerdevice</groupId>
+  <artifactId>bean-bouncer</artifactId>
+  <version>0.0.1</version>
+</dependency>
+```
+
 Load the bean-bouncer default configuration:
 
 ```
@@ -34,5 +44,5 @@ And that is it. To allow a bean to be injected into another scope, use the `@Inj
 @InjectableInto("singleton")
 MyBean getMyBean(){
  //...
-} 
+}
 ```
