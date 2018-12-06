@@ -32,7 +32,16 @@ Load the bean-bouncer default configuration:
 @Configuration
 @Import(BeanBouncerDefaultConfiguration.class)
 public class MyConfiguration {
- //...
+
+  /*
+   * By default, bean-bouncer logs scoping violations. To throw an exception,
+   * register a UnsafeInjectionHandler bean.
+   */
+  @Bean
+  UnsafeInjectionHandler getUnsafeInjectionHandler() {
+    // Throw an exception if a scope violation is detected
+    return new ThrowingUnsafeInjectionHandler();
+  }
 }
 ```
 
