@@ -18,7 +18,7 @@ Everything else needs to be allowed explicitly. If a bean with a not allowed sco
 
 If you're using maven, add the following dependency to your `pom.xml`:
 
-```
+```xml
 <dependency>
   <groupId>de.centerdevice</groupId>
   <artifactId>bean-bouncer</artifactId>
@@ -28,7 +28,7 @@ If you're using maven, add the following dependency to your `pom.xml`:
 
 Load the bean-bouncer default configuration:
 
-```
+```java
 @Configuration
 @Import(BeanBouncerDefaultConfiguration.class)
 public class MyConfiguration {
@@ -47,7 +47,7 @@ public class MyConfiguration {
 
 And that is it. To allow a bean to be injected into another scope, use the `@InjectableInto` annotation:
 
-```
+```java
 @Bean
 @Scope("prototype")
 @InjectableInto("singleton")
